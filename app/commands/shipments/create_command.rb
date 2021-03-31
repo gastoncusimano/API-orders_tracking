@@ -25,6 +25,7 @@ module Shipments
 			shipment = Shipment.new(shipment_params)
       if shipment.save
         OpenStruct.new(success?: true, shipment: shipment, errors: nil)
+				Couriers::FedexCommand.call(shipment_params[:tracking_reference])
       else
         OpenStruct.new(success?: false, shipment: nil, errors: shipment.errors.full_messages)
       end
