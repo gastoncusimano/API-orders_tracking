@@ -10,4 +10,6 @@ class Shipment < ApplicationRecord
   
   validates :courier, :tracking_reference, presence: true
   validates :courier, inclusion: { in: COURIERS }
+
+  scope :fedex, -> { where(courier: 'fedex')}
 end
