@@ -35,6 +35,11 @@ If you want to have existing orders to track you could do an extra step:
 $ rails db:seeds
 ```
 
+### Create a .env.development file to add your postgresql username
+```bash
+DB_USERNAME=postgres_username
+```
+
 ### Run the tests
 
 ```bash
