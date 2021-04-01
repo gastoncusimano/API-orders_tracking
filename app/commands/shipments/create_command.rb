@@ -15,7 +15,7 @@ module Shipments
 		def find_shipment shipment_params
 			shipment = Shipment.find_by(shipment_params)
 			if shipment.present?
-				OpenStruct.new(success?: true, shipment: shipment, errors: nil)
+				OpenStruct.new(response: shipment, errors: nil)
 			else
 				create_shipment(shipment_params)
 			end
@@ -24,10 +24,9 @@ module Shipments
 		def create_shipment shipment_params
 			shipment = Shipment.new(shipment_params)
       if shipment.save
-        OpenStruct.new(success?: true, shipment: shipment, errors: nil)
-				Couriers::FedexCommand.call(shipment_params[:tracking_reference])
+        OpenStruct.new(response: shipment, errors: nil)
       else
-        OpenStruct.new(success?: false, shipment: nil, errors: shipment.errors.full_messages)
+        OpenStruct.new(response: nil, errors: shipment.errors.full_messages)
       end
 		end
 	end

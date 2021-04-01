@@ -6,6 +6,6 @@ module Couriers
 
 		def call
 			FedexService.instance.track(@tracking_number)
-    end
+		end
 	end
 end
