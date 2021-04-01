@@ -1,24 +1,68 @@
-# README
+# Order Tracking API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The idea is the implementation of a microservice that allows tracking shipments made by couriers such as FedEx.
 
-Things you may want to cover:
+The API provides an endpoint for creating shipments and a task for synchronization. (with a cronjob)
+### Prerequisites to build the project
 
-* Ruby version
+- Ruby 3.0.0
+- Rails 6.1.3
+- PostgreSQL
 
-* System dependencies
+### Install the dependencies
 
-* Configuration
+```bash
+$ bundle install
+```
 
-* Database creation
+Will be installed extra gems such as:
+- fedex (fedex service)
+- rspec-rails (Testing)
+- shoulda-matchers (Testing)
+- whenever (Cronjob)
+- dotenv (Environment vars)
 
-* Database initialization
+### Create and setup the database
 
-* How to run the test suite
+Important: postgres will use the default role. This is the same name as the operating system user that initialized the database.
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+$ rails db:create db:migrate
+```
 
-* Deployment instructions
+If you want to have existing orders to track you could do an extra step:
+```bash
+$ rails db:seeds
+```
 
-* ...
+### Run the tests
+
+```bash
+$ bundle exec rspec
+```
+### Create cronjob (optional)
+To have a cronjob that executes the synchronization script once in an hour do:
+```bash
+$ whenever --update-crontab
+```
+### Run the server
+
+```bash
+$ rails server
+```
+If you want to create a new shipment request you can do it through:
+
+POST http://localhost:3000/create_shipment
+
+```json
+{
+  "courier": "fedex",
+  "tracking_reference": "--tracking_reference--"
+}
+```
+
+### Run the synchronization script
+
+```bash
+$ rake shipments:synchronize_fedex
+```
