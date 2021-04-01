@@ -23,11 +23,11 @@ module Shipments
 
 		def create_shipment shipment_params
 			shipment = Shipment.new(shipment_params)
-      if shipment.save
-        OpenStruct.new(response: shipment, errors: nil)
-      else
-        OpenStruct.new(response: nil, errors: shipment.errors.full_messages)
-      end
+			if shipment.save
+				OpenStruct.new(response: shipment, errors: nil)
+			else
+				OpenStruct.new(response: nil, errors: shipment.errors.full_messages)
+			end
 		end
 	end
 end
