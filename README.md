@@ -22,9 +22,12 @@ Will be installed extra gems such as:
 - whenever (Cronjob)
 - dotenv (Environment vars)
 
-### Create and setup the database
+### Create a .env.development file to add your postgresql username
+```bash
+DB_USERNAME=postgres_username
+```
 
-Important: postgres will use the default role. This is the same name as the operating system user that initialized the database.
+### Create and setup the database
 
 ```bash
 $ rails db:create db:migrate
@@ -33,11 +36,6 @@ $ rails db:create db:migrate
 If you want to have existing orders to track you could do an extra step:
 ```bash
 $ rails db:seeds
-```
-
-### Create a .env.development file to add your postgresql username
-```bash
-DB_USERNAME=postgres_username
 ```
 
 ### Run the tests
